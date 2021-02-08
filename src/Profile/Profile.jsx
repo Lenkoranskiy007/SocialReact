@@ -10,7 +10,8 @@ export const Profile = () => {
         ava + description
     </div>
         <MyPosts/>
-        <Post/>
+        <Post message='How are You?' likesCount='10'/>
+        <Post message="It's my first project men" likesCount='15'/>
     </div>
 
 }
