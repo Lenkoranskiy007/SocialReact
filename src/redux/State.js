@@ -1,7 +1,7 @@
 import React from 'react'
 
 
-export const State = {
+export const state = {
 
     dialogsPage: {
         dialogs: [
@@ -25,4 +25,10 @@ export const State = {
     }
 
 
+}
+
+export let addPost = (postMessage) => {
+    let newPost = {id: 4, message: postMessage, likesCount: '25'}
+    state.profilePage.posts.push(newPost)
+    return state
 }
