@@ -1,4 +1,5 @@
 import React from 'react'
+import {rerenderEntireTree} from "../Render";
 
 
 export const state = {
@@ -30,5 +31,5 @@ export const state = {
 export let addPost = (postMessage) => {
     let newPost = {id: 4, message: postMessage, likesCount: '25'}
     state.profilePage.posts.push(newPost)
-    return state
+    rerenderEntireTree(state)
 }
