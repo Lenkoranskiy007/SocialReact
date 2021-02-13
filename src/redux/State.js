@@ -22,14 +22,20 @@ export const state = {
         posts:[
             {id: 1, message: 'How are you', likesCount: '15'},
             {id: 2, message: "It's my first project men", likesCount: '20'}
-        ]
+        ],
+        newPostText: 'Just do it'
     }
 
 
 }
 
-export let addPost = (postMessage) => {
-    let newPost = {id: 4, message: postMessage, likesCount: '25'}
+export const addPost = () => {
+    let newPost = {id: 4, message: state.profilePage.newPostText, likesCount: '25'}
     state.profilePage.posts.push(newPost)
+    rerenderEntireTree(state)
+}
+
+export const updateNewPostText = (newText) => {
+    state.profilePage.newPostText = newText
     rerenderEntireTree(state)
 }

@@ -11,18 +11,23 @@ export const MyPosts = (props) => {
     let newPostElement  = React.createRef()
 
     let addPost = () => {
-        let text = newPostElement.current.value
-        props.addPost(text)
+        props.addPost()
+        props.updateNewPostText('')
     }
 
     let postsElements = props.posts.map((post) => {
         return <Post id={post.id} message={post.message} likesCount={post.likesCount}/>
     })
 
+    let onChangePost = () => {
+        let newText = newPostElement.current.value
+        props.updateNewPostText(newText)
+    }
+
     return (
         <div>
             <div>My posts</div>
-            <textarea ref={newPostElement}></textarea>
+            <textarea value={props.newPostText} onChange={onChangePost} ref={newPostElement} ></textarea>
             <button onClick={addPost}>Add post</button>
             {postsElements}
         </div>
