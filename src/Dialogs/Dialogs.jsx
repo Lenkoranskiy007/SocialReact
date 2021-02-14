@@ -6,8 +6,7 @@ import {Message} from "./Message/Message";
 
 
 export const Dialogs = (props) => {
-
-    let messagesElement = props.messages.map((messages) => {
+       let messagesElement = props.messages.map((messages) => {
         return <Message id={messages.id} message={messages.message}/>
     })
     let dialogsElement = props.dialogs.map((dialogs) => {

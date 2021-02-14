@@ -7,7 +7,6 @@ import {Route} from "react-router-dom";
 
 
 function App(props) {
-
     return (
         <div className="App-wrapper">
             <Header/>

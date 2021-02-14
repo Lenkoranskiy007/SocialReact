@@ -11,8 +11,8 @@ export const MyPosts = (props) => {
     let newPostElement  = React.createRef()
 
     let addPost = () => {
+        debugger
         props.addPost()
-        props.updateNewPostText('')
     }
 
     let postsElements = props.posts.map((post) => {
