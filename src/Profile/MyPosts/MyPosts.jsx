@@ -11,8 +11,10 @@ export const MyPosts = (props) => {
     let newPostElement  = React.createRef()
 
     let addPost = () => {
-        debugger
-        props.addPost()
+        // debugger
+        // props.addPost()
+        let action = {type: 'ADD-POST'}
+        props.dispatch(action)
     }
 
     let postsElements = props.posts.map((post) => {
@@ -20,8 +22,11 @@ export const MyPosts = (props) => {
     })
 
     let onChangePost = () => {
-        let newText = newPostElement.current.value
-        props.updateNewPostText(newText)
+        let text = newPostElement.current.value
+        // props.updateNewPostText(newText)
+        let action = {type: 'UPDATE-NEW-POST-TEXT', newText: text}
+        props.dispatch(action)
+
     }
 
     return (
