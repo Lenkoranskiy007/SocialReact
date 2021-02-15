@@ -6,10 +6,11 @@ import {addMessageActionCreator, updateNewMessageActionCreator} from "../redux/d
 
 
 export const Dialogs = (props) => {
-       let messagesElement = props.messages.map((messages) => {
+
+       let messagesElement =  props.dialogsPage.messages.map((messages) => {
         return <Message id={messages.id} message={messages.message}/>
     })
-    let dialogsElement = props.dialogs.map((dialogs) => {
+    let dialogsElement = props.dialogsPage.dialogs.map((dialogs) => {
         return <DialogItem id={dialogs.id} name={dialogs.name}/>
     } )
 

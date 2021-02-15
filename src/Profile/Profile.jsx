@@ -9,10 +9,9 @@ export const Profile = (props) => {
     return <div className={classes.content}>
          <ProfileInfo/>
         <MyPosts
-
-            newPostText={props.newPostText}
+            profilePage={props.profilePage}
             dispatch={props.dispatch}
-            posts={props.posts} />
+             />
         </div>
 
 

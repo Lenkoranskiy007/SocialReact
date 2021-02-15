@@ -11,10 +11,11 @@ export const MyPosts = (props) => {
     let newPostElement  = React.createRef()
 
     let addPost = () => {
+
         props.dispatch(addPostActionCreator())
     }
 
-    let postsElements = props.posts.map((post) => {
+    let postsElements = props.profilePage.posts.map((post) => {
         return <Post id={post.id} message={post.message} likesCount={post.likesCount}/>
     })
 
@@ -27,7 +28,7 @@ export const MyPosts = (props) => {
     return (
         <div>
             <div>My posts</div>
-            <textarea value={props.newPostText} onChange={onChangePost} ref={newPostElement} ></textarea>
+            <textarea value={props.profilePage.newPostText} onChange={onChangePost} ref={newPostElement} ></textarea>
             <button onClick={addPost}>Add post</button>
             {postsElements}
         </div>
