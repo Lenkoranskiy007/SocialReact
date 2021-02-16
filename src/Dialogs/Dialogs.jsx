@@ -16,13 +16,13 @@ export const Dialogs = (props) => {
 
 
     let addMessage = () => {
-       props.dispatch(addMessageActionCreator())
+       props.onSendMessage()
 
     }
 
     let onChangeMessage = (e) => {
          let messageText = e.target.value
-         props.dispatch(updateNewMessageActionCreator(messageText))
+         props.onChangeMessage(messageText)
 
     }
 
@@ -33,7 +33,7 @@ export const Dialogs = (props) => {
         </div>
             <div className={classes.messages}>
                 {messagesElement}
-                <textarea onChange={onChangeMessage} value={props.newMessageText}></textarea>
+                <textarea onChange={onChangeMessage} value={props.dialogsPage.newMessageText} ></textarea>
                 <button onClick={addMessage}>send</button>
             </div>
         </div>)

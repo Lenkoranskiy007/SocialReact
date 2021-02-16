@@ -4,6 +4,7 @@ import {Navbar} from "./Navbar/Navbar";
 import {Profile} from "./Profile/Profile";
 import {Dialogs} from "./Dialogs/Dialogs";
 import {Route} from "react-router-dom";
+import {DialogsContainer} from "./Dialogs/DialogsContainer";
 
 
 function App(props) {
@@ -13,7 +14,7 @@ function App(props) {
             <Header/>
             <Navbar/>
             <div className='app-wrapper-content'>
-                <Route path='/dialogs' render={ () => <Dialogs
+                <Route path='/dialogs' render={ () => <DialogsContainer
                   dialogsPage={props.state.dialogsPage}
                   dispatch={props.dispatch}
 

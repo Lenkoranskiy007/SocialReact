@@ -8,11 +8,11 @@ import {addPostActionCreator, updateNewPostTextActionCreator} from "../../redux/
 
 export const MyPosts = (props) => {
 
+    console.log(props.profilePage.posts)
     let newPostElement  = React.createRef()
 
     let addPost = () => {
-
-        props.dispatch(addPostActionCreator())
+        props.addPost()
     }
 
     let postsElements = props.profilePage.posts.map((post) => {
@@ -21,8 +21,7 @@ export const MyPosts = (props) => {
 
     let onChangePost = () => {
         let text = newPostElement.current.value
-        props.dispatch(updateNewPostTextActionCreator(text))
-
+        props.updateNewPostText(text)
     }
 
     return (
