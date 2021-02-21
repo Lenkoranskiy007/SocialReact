@@ -5,9 +5,9 @@ let SET_USERS = 'SET_USERS'
 
 let initialState = {
     users: [
-        {id: 1, photoUrl: 'https://www.kindpng.com/picc/m/81-814437_logo-linkedin-png-rond-transparent-png.png', followed: false, fullName: 'Farid', status: 'I am a boss', location: {city: 'Moscow', country: 'Russia'}},
-        {id: 2, photoUrl: 'https://www.kindpng.com/picc/m/81-814437_logo-linkedin-png-rond-transparent-png.png', followed: true, fullName: 'Tamik', status: 'I am a Tamik', location: {city: 'Grozny', country: 'Russia'}},
-        {id: 3, photoUrl: 'https://www.kindpng.com/picc/m/81-814437_logo-linkedin-png-rond-transparent-png.png' , followed: false,fullName: 'Adam', status: 'I am a Adam', location: {city: 'Moscow', country: 'Russia'}}
+        // {id: 1, photoUrl: 'https://www.kindpng.com/picc/m/81-814437_logo-linkedin-png-rond-transparent-png.png', followed: false, fullName: 'Farid', status: 'I am a boss', location: {city: 'Moscow', country: 'Russia'}},
+        // {id: 2, photoUrl: 'https://www.kindpng.com/picc/m/81-814437_logo-linkedin-png-rond-transparent-png.png', followed: true, fullName: 'Tamik', status: 'I am a Tamik', location: {city: 'Grozny', country: 'Russia'}},
+        // {id: 3, photoUrl: 'https://www.kindpng.com/picc/m/81-814437_logo-linkedin-png-rond-transparent-png.png' , followed: false,fullName: 'Adam', status: 'I am a Adam', location: {city: 'Moscow', country: 'Russia'}}
     ]
 }
 
