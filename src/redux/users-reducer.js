@@ -1,14 +1,15 @@
 let FOLLOW = 'FOLLOW'
 let UNFOLLOW = 'UNFOLLOW'
 let SET_USERS = 'SET_USERS'
+let SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
+let SET_TOTAL_COUNT = 'SET_TOTAL_COUNT'
 
 
 let initialState = {
-    users: [
-        // {id: 1, photoUrl: 'https://www.kindpng.com/picc/m/81-814437_logo-linkedin-png-rond-transparent-png.png', followed: false, fullName: 'Farid', status: 'I am a boss', location: {city: 'Moscow', country: 'Russia'}},
-        // {id: 2, photoUrl: 'https://www.kindpng.com/picc/m/81-814437_logo-linkedin-png-rond-transparent-png.png', followed: true, fullName: 'Tamik', status: 'I am a Tamik', location: {city: 'Grozny', country: 'Russia'}},
-        // {id: 3, photoUrl: 'https://www.kindpng.com/picc/m/81-814437_logo-linkedin-png-rond-transparent-png.png' , followed: false,fullName: 'Adam', status: 'I am a Adam', location: {city: 'Moscow', country: 'Russia'}}
-    ]
+    users: [],
+    pageSize: 5,
+    totalCount: 0,
+    currentPage: 5
 }
 
 
@@ -37,7 +38,14 @@ export const usersReducer = (state = initialState, action ) => {
                 })
             }
         case  SET_USERS: {
-            return  {...state, users: [...state.users, ...action.users]}
+            return  {...state, users: action.users}
+        }
+
+        case SET_CURRENT_PAGE: {
+            return {...state, currentPage: action.currentPage}
+        }
+        case SET_TOTAL_COUNT: {
+            return {...state, totalCount: action.count}
         }
         default:
             return state
@@ -57,4 +65,11 @@ export const setUsersAC = (users) => {
     return {type: SET_USERS, users}
 }
 
+export const setCurrentPageAC = (currentPage) => {
+    return {type:SET_CURRENT_PAGE, currentPage }
+}
+
+export const setTotalCountAC = (totalCount) => {
+    return {type:SET_TOTAL_COUNT, count: totalCount }
+}
 
