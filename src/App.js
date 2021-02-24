@@ -6,6 +6,7 @@ import {Dialogs} from "./Dialogs/Dialogs";
 import {Route} from "react-router-dom";
 import DialogsContainer from "./Dialogs/DialogsContainer";
 import UsersContainer from "./USers/UsersContainer";
+import ProfilesContainer from "./Profile/ProfilesContainer";
 
 
 function App(props) {
@@ -16,7 +17,7 @@ function App(props) {
             <div className='app-wrapper-content'>
                 <Route path='/dialogs' render={ () => <DialogsContainer
                 />}/>
-                <Route path='/profile' render={() => <Profile
+                <Route path='/profile' render={() => <ProfilesContainer
                 />}/>
 
                 <Route path='/users' render={() => <UsersContainer

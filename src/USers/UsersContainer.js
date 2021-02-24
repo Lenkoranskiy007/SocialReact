@@ -10,7 +10,7 @@ import {
 } from "../redux/users-reducer";
 import * as axios from "axios";
 import Users from "./Users";
-import preloader from '../photo/Youtube_loading_symbol_1_(wobbly).gif'
+import preloader from '../photo/preloader.gif'
 
 
 
