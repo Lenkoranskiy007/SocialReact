@@ -17,22 +17,26 @@ import preloader from '../photo/preloader.gif'
 class UsersAPIComponent extends React.Component {
 
     componentDidMount() {
-        this.props.toggleIsFetching(true)
-            axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(response => {
-                this.props.toggleIsFetching(false)
-                this.props.setUsers(response.data.items)
-                this.props.setTotalCount(response.data.totalCount)
+        this.props.toggleIsFetchingAC(true)
+            axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`, {
+                withCredentials: true
+            }).then(response => {
+                this.props.toggleIsFetchingAC(false)
+                this.props.setUsersAC(response.data.items)
+                this.props.setTotalCountAC(response.data.totalCount)
             })
 
     }
 
     onPageChanged =  (pageNumber) => {
 
-        this.props.setCurrentPage(pageNumber)
-        this.props.toggleIsFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`).then(response => {
-            this.props.toggleIsFetching(false)
-            this.props.setUsers(response.data.items)
+        this.props.setCurrentPageAC(pageNumber)
+        this.props.toggleIsFetchingAC(true)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`, {
+            withCredentials: true
+        }).then(response => {
+            this.props.toggleIsFetchingAC(false)
+            this.props.setUsersAC(response.data.items)
         })
     }
 
@@ -51,8 +55,8 @@ class UsersAPIComponent extends React.Component {
             totalCount={this.props.totalCount}
             currentPage={this.props.currentPage}
             users={ this.props.users}
-            follow={this.props.follow}
-            unfollow={this.props.unFollow}
+            follow={this.props.followAC}
+            unfollow={this.props.unFollowAC}
         />
         </>
     }
@@ -72,32 +76,9 @@ let mapStateToProps = (state) => {
     }
 }
 
-let mapDispatchToProps = (dispatch) => {
-    return {
-        follow: (userId) => {
-            dispatch(followAC(userId))
-        },
-        unFollow: (userId) => {
-            dispatch(unFollowAC(userId))
-        },
-        setUsers: (users) => {
-            dispatch(setUsersAC(users))
-        },
-        setCurrentPage: (currentPage) => {
-            dispatch(setCurrentPageAC(currentPage))
-        },
-        setTotalCount: (count) => {
-            dispatch(setTotalCountAC(count))
-        },
-        toggleIsFetching: (isFetching) => {
-           dispatch(toggleIsFetchingAC(isFetching))
-        }
 
 
-    }
-
-}
 
 
-const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersAPIComponent)
+const UsersContainer = connect(mapStateToProps, {followAC,unFollowAC,setUsersAC,setCurrentPageAC,setTotalCountAC,toggleIsFetchingAC})(UsersAPIComponent)
 export default UsersContainer
