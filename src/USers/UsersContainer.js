@@ -11,6 +11,7 @@ import {
 import * as axios from "axios";
 import Users from "./Users";
 import preloader from '../photo/preloader.gif'
+import {getUsers, usersAPI} from "../Api/Api";
 
 
 
@@ -18,12 +19,10 @@ class UsersAPIComponent extends React.Component {
 
     componentDidMount() {
         this.props.toggleIsFetchingAC(true)
-            axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`, {
-                withCredentials: true
-            }).then(response => {
+        usersAPI.getUsers(this.props.currentPage, this.props.pageSize ).then(data => {
                 this.props.toggleIsFetchingAC(false)
-                this.props.setUsersAC(response.data.items)
-                this.props.setTotalCountAC(response.data.totalCount)
+                this.props.setUsersAC(data.items)
+                this.props.setTotalCountAC(data.totalCount)
             })
 
     }
@@ -32,11 +31,9 @@ class UsersAPIComponent extends React.Component {
 
         this.props.setCurrentPageAC(pageNumber)
         this.props.toggleIsFetchingAC(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`, {
-            withCredentials: true
-        }).then(response => {
+        usersAPI.getUsers(pageNumber, this.props.pageSize).then(data => {
             this.props.toggleIsFetchingAC(false)
-            this.props.setUsersAC(response.data.items)
+            this.props.setUsersAC(data.items)
         })
     }
 
