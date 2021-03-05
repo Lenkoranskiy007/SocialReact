@@ -7,7 +7,7 @@ export const ProfileInfo = (props) => {
     if(!props.profile) {
        return  <img src={preloader}/>
     }
-    debugger
+
 
     return (
         <div >
