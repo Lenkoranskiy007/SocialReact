@@ -29,6 +29,17 @@ export  const usersAPI = {
             return res.data
         })
         return promise
+    },
+    getProfile(userId) {
+       return instance.get(`profile/` + userId)
+    }
+
+
+}
+
+export const authAPI = {
+    me() {
+        return instance.get(`auth/me`)
     }
 }
 

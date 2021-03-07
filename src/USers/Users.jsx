@@ -40,22 +40,11 @@ import {usersAPI} from "../Api/Api";
                         <div>
                             {u.followed
                                 ? <button disabled={props.followingInProgress.some(id => id === u.id)} onClick={() => {
-                                    props.toggleIsFollowingProgress(true, u.id)
-                                    usersAPI.unfollow(u.id).then(data => {
-                                        if(data.resultCode === 0 ) {
-                                            props.unfollow(u.id, u.id)
-                                        }
-                                        props.toggleIsFollowingProgress(false)
-                                    })}}
+                                    props.unfollowTC(u.id)
+                                }}
                                 > Unfollow</button>
                                 : <button disabled={props.followingInProgress.some(id => id === u.id)} onClick={() => {
-                                    props.toggleIsFollowingProgress(true, u.id)
-                                    usersAPI.follow(u.id).then(data => {
-                                        if(data.resultCode === 0 ) {
-                                            props.follow(u.id)
-                                        }
-                                        props.toggleIsFollowingProgress(false, u.id)
-                                    })
+                                    props.followTC(u.id)
                                 }}> Follow</button>
                             }
 

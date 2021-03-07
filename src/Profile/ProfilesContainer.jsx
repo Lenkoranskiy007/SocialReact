@@ -1,6 +1,6 @@
 import React from 'react'
 import {Profile} from "./Profile";
-import {setUserProfileActionCreator} from "../redux/profile-reducer";
+import {getProfileTC, setUserProfileActionCreator} from "../redux/profile-reducer";
 import * as axios from "axios";
 import {connect} from "react-redux";
 import {withRouter} from "react-router";
@@ -14,10 +14,11 @@ class ProfileContainer extends React.Component {
         if(!userId) {
             userId = 2
         }
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/` + userId).then(response => {
-            debugger
-            this.props.setUserProfileActionCreator(response.data)
-        })
+        // axios.get(`https://social-network.samuraijs.com/api/1.0/profile/` + userId).then(response => {
+        //     this.props.setUserProfileActionCreator(response.data)
+        // })
+        this.props.getProfileTC(userId)
+
     }
 
     render() {
@@ -38,5 +39,5 @@ let WithUrlDataContainerComponent = withRouter(ProfileContainer)
 
 
 
-let ProfilesContainer = connect(mapStateToProps, {setUserProfileActionCreator})(WithUrlDataContainerComponent)
+let ProfilesContainer = connect(mapStateToProps, { getProfileTC})(WithUrlDataContainerComponent)
 export default ProfilesContainer
