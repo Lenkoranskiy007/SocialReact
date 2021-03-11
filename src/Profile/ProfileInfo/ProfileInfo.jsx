@@ -2,6 +2,7 @@ import React from 'react'
 import classes from "../Profile.module.css";
 import preloader from '../../photo/preloader.gif'
 import ProfileStatus from "./ProfileStatus";
+import {updateStatusTC} from "../../redux/profile-reducer";
 
 export const ProfileInfo = (props) => {
 
@@ -14,13 +15,11 @@ export const ProfileInfo = (props) => {
         <div >
             <div>
                 {/*<img src="https://www.nultylighting.co.uk/wp-content/uploads/2012/10/retail-store-sport-red-light-tunnel-consultant-nulty-banner-1920x1080.jpg" alt=""/>*/}
-
                 <div>
                     <img src={props.profile.photos.large} alt=""/>
-                    ava + description
+                    <ProfileStatus status={props.status} updateStatusTC={props.updateStatusTC}/>
                 </div>
-                <ProfileStatus status={'hello my friend'}/>
-            </div>
+                </div>
         </div>
     )
 }

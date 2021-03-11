@@ -1,6 +1,6 @@
 import React from 'react'
 import {Profile} from "./Profile";
-import {getProfileTC, setUserProfileActionCreator} from "../redux/profile-reducer";
+import {getProfileTC, getStatusTC, setUserProfileActionCreator, updateStatusTC} from "../redux/profile-reducer";
 import * as axios from "axios";
 import {connect} from "react-redux";
 import {Redirect, withRouter} from "react-router";
@@ -20,13 +20,14 @@ class ProfileContainer extends React.Component {
         //     this.props.setUserProfileActionCreator(response.data)
         // })
         this.props.getProfileTC(userId)
+        this.props.getStatusTC(userId)
 
     }
 
     render() {
 
         return (
-            <Profile  {...this.props}  profile={this.props.profile}/>
+            <Profile  {...this.props}  profile={this.props.profile} status={this.props.status} updateStatusTC={this.props.updateStatusTC}/>
         )
 
     }
@@ -35,11 +36,12 @@ class ProfileContainer extends React.Component {
 let mapStateToProps = (state) => {
     return {
         profile: state.profilePage.profile,
+        status: state.profilePage.status
     }
 }
 
 export default compose(
-    connect(mapStateToProps, { getProfileTC}),
+    connect(mapStateToProps, { getProfileTC, getStatusTC, updateStatusTC}),
     withRouter,
     //withAuthRedirect
 )(ProfileContainer)

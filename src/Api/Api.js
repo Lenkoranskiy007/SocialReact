@@ -31,11 +31,40 @@ export  const usersAPI = {
         return promise
     },
     getProfile(userId) {
-       return instance.get(`profile/` + userId)
+        console.warn('Obsolete method profileAPI object')
+      // const promise = profileAPI.getProfile(userId)
+      // return promise
+        return profileAPI.getProfile(userId)
     }
 
 
 }
+
+export const profileAPI = {
+    getProfile(userId) {
+        return instance.get(`profile/` + userId)
+        // const promise = instance.get(`profile/` + userId).then(res => {
+        //     return res.data
+        // })
+        // return promise
+    },
+    getStatus(userId) {
+        return instance.get(`profile/status/` + userId)
+        // const promise =  instance.get(`profile/status/` + userId).then(res => {
+        //     return res.data
+        // })
+        // return promise
+    },
+    updateStatus(status) {
+        return instance.put(`profile/status`, {status: status})
+        // const promise = instance.put(`profile/status`, {status: status}).then(res => {
+        //     return res.data
+        // })
+        // return promise
+
+    }
+}
+
 
 export const authAPI = {
     me() {
