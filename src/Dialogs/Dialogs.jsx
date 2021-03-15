@@ -53,6 +53,16 @@ const AddMessageForm = (props) => {
             rememberMe: false,
             newMessageBody: ''
         },
+        validate: (values) => {
+            const errors = {};
+            if (!values.newMessageBody) {
+                errors.newMessageBody = 'Required!';
+            } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+                errors.newMessageBody = '';
+            }
+            return errors;
+        },
+
 
         onSubmit: values => {
             props.onSendMessage(values.newMessageBody);
@@ -72,6 +82,7 @@ const AddMessageForm = (props) => {
             {props.messagesElement}
             <TextField onChange={formik.handleChange}  name='newMessageBody'  />
             <Button  type={'submit'} variant={'contained'} color={'secondary'} >Send Message</Button>
+            {formik.errors.newMessageBody ? <div style={{color: "blue"}}>{formik.errors.newMessageBody}</div>: null }
         </form>
     )
 }

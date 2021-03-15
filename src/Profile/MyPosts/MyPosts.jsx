@@ -44,7 +44,16 @@ const AddPostForm = (props) => {
             email: '',
             password: '',
             rememberMe: false,
-            message: ''
+            addPost: ''
+        },
+        validate: (values) => {
+            const errors = {};
+            if (!values.addPost) {
+                errors.addPost = 'Required!';
+            } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+                errors.addPost = '';
+            }
+            return errors;
         },
         onSubmit: values => {
             props.addPost(values.addPost)
@@ -60,7 +69,9 @@ const AddPostForm = (props) => {
                 <TextField onChange={formik.handleChange}  name='addPost' />
                 <Button type={'submit'} variant={'contained'} color={'secondary'}>Add post</Button>
             </div>
+            {formik.errors.addPost ? <div style={{color: "red"}}>{formik.errors.addPost}</div>: null }
             {props.postElements}
+
         </form>
     )
 }
