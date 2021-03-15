@@ -1,55 +1,25 @@
-// import React from 'react'
-import {  Field } from 'react-final-form'
-import {Form} from "formik";
-//
-//
-//
-// export const Login= (props) => {
-//     //
-//     //
-//     return (
-//
-//         <form onSubmit={props.handleSubmit}>
-//             <div>
-//                 <h1></h1>
-//                 <Field
-//                     placeholder={'Login'}
-//                     name={'login'}
-//                     component={'input'}
-//                 />
-//             </div>
-//             <div>
-//                 <Field
-//                     placeholder={'Password'}
-//                     name={'password'}
-//                     component={'input'}
-//
-//                 />
-//             </div>
-//             <div>
-//                 <Field
-//                     component={'input'}
-//                     name={'rememberMe'}
-//                     type={'checkbox'}
-//
-//                 /> remember me
-//             </div>
-//             <button>Login</button>
-//         </form>
-//
-//     )
-//
-// }
-//
-//
-
 
 import React from 'react'
 import {Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, TextField, Button, Grid} from '@material-ui/core'
+import {useFormik} from "formik";
 
 export const Login = () => {
-    return <Grid container justify="center">
+    const formik = useFormik({
+        initialValues: {
+            email: '',
+            password: '',
+            rememberMe: false
+        },
+        onSubmit: values => {
+            alert(JSON.stringify(values));
+        },
+    })
+
+
+
+    return (<Grid container justify="center">
         <Grid item xs={4}>
+            <form  onSubmit={formik.handleSubmit}>
             <FormControl>
                 <FormLabel>
                     {/*<p>To log in get registered*/}
@@ -65,20 +35,31 @@ export const Login = () => {
                     <TextField
                         label="Email"
                         margin="normal"
+                        name='email'
+                        onChange={formik.handleChange}
+                        value={formik.values.email}
                     />
                     <TextField
                         type="password"
                         label="Password"
                         margin="normal"
+                        name='password'
+                        onChange={formik.handleSubmit}
+                        value={formik.values.password}
                     />
                     <FormControlLabel
                         label={'Remember me'}
-                        control={<Checkbox />}
+                        control={<Checkbox
+                         onChange={formik.handleChange}
+                         checked={formik.values.rememberMe}
+                         name='rememberMe'
+                        />}
                     />
                     <Button type={'submit'} variant={'contained'} color={'secondary'}>Login</Button>
                 </FormGroup>
             </FormControl>
+            </form>
         </Grid>
-    </Grid>
+    </Grid>)
 }
 

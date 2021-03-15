@@ -1,5 +1,5 @@
 let ADD_MESSAGE = 'ADD-MESSAGE'
-let UPDATE_NEW_MESSAGE = 'UPDATE-NEW-MESSAGE'
+// let UPDATE_NEW_MESSAGE = 'UPDATE-NEW-MESSAGE'
 
 let initialState = {
     dialogs: [
@@ -7,14 +7,14 @@ let initialState = {
         {id: 2, name: 'Sudjaat'},
         {id: 3, name: 'Rufat'},
         {id: 4, name: 'Adam'},
-        {id: 5, name: 'Tamerlam'}
+        {id: 5, name: 'Tamerlan'}
     ],
     messages: [
         {id: 1, message: 'Hi'},
         {id: 2, message: 'How do you do?'},
         {id: 3, message: "It's my first project men!"}
     ],
-    newMessageText: 'Hi bro'
+    // newMessageText: 'Hi bro'
 
 }
 
@@ -22,8 +22,9 @@ export const dialogsReducer = (state = initialState, action) => {
     let stateCopy
     switch (action.type) {
         case ADD_MESSAGE: {
+
             stateCopy = {...state}
-            let newMessage = {id: 4, message: state.newMessageText}
+            let newMessage = {id: 4, message: action.newMessageBody}
             stateCopy.messages = [...state.messages]
             stateCopy.newMessageText = ''
             stateCopy.messages.push(newMessage)
@@ -34,22 +35,22 @@ export const dialogsReducer = (state = initialState, action) => {
             //     messages: [...state.messages, {id: 6, message: body}]
             // }
         }
-        case UPDATE_NEW_MESSAGE: {
-            stateCopy = {...state}
-            stateCopy.newMessageText = action.messageText
-            return stateCopy
-
-      }
+      //   case UPDATE_NEW_MESSAGE: {
+      //       stateCopy = {...state}
+      //       stateCopy.newMessageText = action.messageText
+      //       return stateCopy
+      //
+      // }
         default: {
             return state
         }
     }
 }
 
-export const addMessageActionCreator = () => {
-    return {type: ADD_MESSAGE}
+export const addMessageActionCreator = (newMessageBody) => {
+    return {type: ADD_MESSAGE, newMessageBody}
 }
-
-export const updateNewMessageActionCreator = (messageText) => {
-    return {type: UPDATE_NEW_MESSAGE, messageText: messageText}
-}
+//
+// export const updateNewMessageActionCreator = (messageText) => {
+//     return {type: UPDATE_NEW_MESSAGE, messageText: messageText}
+// }

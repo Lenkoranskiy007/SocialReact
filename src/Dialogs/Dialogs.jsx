@@ -4,26 +4,28 @@ import {DialogItem} from "./DilalogItem/DialogItem";
 import {Message} from "./Message/Message";
 import {addMessageActionCreator, updateNewMessageActionCreator} from "../redux/dialogs-reducer";
 import {Redirect} from "react-router";
+import {useFormik} from "formik";
+import {Button, FormGroup, TextField} from "@material-ui/core";
 
 
 export const Dialogs = (props) => {
 
-       let messagesElement =  props.dialogsPage.messages.map((messages) => {
+    let messagesElement = props.dialogsPage.messages.map((messages) => {
         return <Message id={messages.id} message={messages.message}/>
     })
     let dialogsElement = props.dialogsPage.dialogs.map((dialogs) => {
         return <DialogItem id={dialogs.id} name={dialogs.name}/>
-    } )
+    })
 
 
     let addMessage = () => {
-       props.onSendMessage()
+        props.onSendMessage()
 
     }
 
     let onChangeMessage = (e) => {
-         let messageText = e.target.value
-         props.onChangeMessage(messageText)
+        let messageText = e.target.value
+        props.onChangeMessage(messageText)
 
     }
 
@@ -31,13 +33,45 @@ export const Dialogs = (props) => {
 
     return (
         <div className={classes.dialogs}>
-        <div className={classes.dialogsItems}>
-            {dialogsElement}
-        </div>
-            <div className={classes.messages}>
-                {messagesElement}
-                <textarea onChange={onChangeMessage} value={props.dialogsPage.newMessageText} ></textarea>
-                <button onClick={addMessage}>send</button>
+            <div className={classes.dialogsItems}>
+                {dialogsElement}
             </div>
+            <AddMessageForm  onSendMessage={props.onSendMessage} dialogsElement={dialogsElement} messagesElement={messagesElement}/>
+            {/*<div className={classes.messages}>*/}
+            {/*    {messagesElement}*/}
+            {/*    <textarea onChange={onChangeMessage} value={props.dialogsPage.newMessageText}></textarea>*/}
+            {/*    <button onClick={addMessage}>send</button>*/}
+            {/*</div>*/}
         </div>)
-    }
+}
+
+const AddMessageForm = (props) => {
+    const formik = useFormik({
+        initialValues: {
+            email: '',
+            password: '',
+            rememberMe: false,
+            newMessageBody: ''
+        },
+
+        onSubmit: values => {
+            props.onSendMessage(values.newMessageBody);
+        },
+
+
+    })
+
+    // const addNewMessage =  (value) => {
+    //     props.onSendMessage(value.newMessageBody)
+    // }
+
+
+
+    return (
+        <form onSubmit={formik.handleSubmit}>
+            {props.messagesElement}
+            <TextField onChange={formik.handleChange}  name='newMessageBody'  />
+            <Button  type={'submit'} variant={'contained'} color={'secondary'} >Send Message</Button>
+        </form>
+    )
+}
