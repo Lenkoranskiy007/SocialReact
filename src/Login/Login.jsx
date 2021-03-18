@@ -1,65 +1,89 @@
-
 import React from 'react'
 import {Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, TextField, Button, Grid} from '@material-ui/core'
 import {useFormik} from "formik";
+import {connect} from "react-redux";
+import {login} from "../redux/auth-reducer";
+import {Redirect} from "react-router";
 
-export const Login = () => {
+
+
+
+export const Login = (props) => {
+
     const formik = useFormik({
         initialValues: {
             email: '',
             password: '',
             rememberMe: false
         },
+        validate: (values) => {
+            const errors = {};
+            if (!values.email) {
+                errors.email = 'Required';
+            } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+                errors.email = 'Invalid email address';
+            } else if(!values.password) {
+                errors.password = 'Required'
+            } else if (values.password < 2) {
+                errors.password = 'Invalid password'
+            }
+            return errors;
+        },
+
+
         onSubmit: values => {
             alert(JSON.stringify(values));
+            formik.resetForm()
+             props.login(values.email, values.password ,values.rememberMe)
         },
     })
+    if(props.isAuth) {
+        return <Redirect to={'/profile'}/>
+    }
 
 
-
-    return (<Grid container justify="center">
+    return <Grid container justify="center">
         <Grid item xs={4}>
-            <form  onSubmit={formik.handleSubmit}>
+            <form onSubmit={formik.handleSubmit}>
             <FormControl>
-                <FormLabel>
-                    {/*<p>To log in get registered*/}
-                    {/*    <a href={'https://social-network.samuraijs.com/'}*/}
-                    {/*       target={'_blank'}>here*/}
-                    {/*    </a>*/}
-                    {/*</p>*/}
-                    {/*<p>or use common test account credentials:</p>*/}
-                    {/*<p>Email: free@samuraijs.com</p>*/}
-                    {/*<p>Password: free</p>*/}
-                </FormLabel>
+
                 <FormGroup>
                     <TextField
                         label="Email"
                         margin="normal"
-                        name='email'
-                        onChange={formik.handleChange}
-                        value={formik.values.email}
+                        {...formik.getFieldProps('email')}
                     />
+                    {formik.errors.email ? <div style={{color: 'red'}}>{formik.errors.email}</div>: null}
                     <TextField
                         type="password"
                         label="Password"
                         margin="normal"
-                        name='password'
-                        onChange={formik.handleSubmit}
-                        value={formik.values.password}
+                        {...formik.getFieldProps('password')}
                     />
+                    {formik.errors.password ? <div style={{color: 'red'}}>{formik.errors.password}</div>: null}
                     <FormControlLabel
                         label={'Remember me'}
                         control={<Checkbox
-                         onChange={formik.handleChange}
-                         checked={formik.values.rememberMe}
-                         name='rememberMe'
+                        onChange={formik.handleChange}
+                        checked={formik.values.rememberMe}
+                        name="rememberMe"
                         />}
                     />
-                    <Button type={'submit'} variant={'contained'} color={'secondary'}>Login</Button>
+                    <Button type={'submit'} variant={'contained'} color={'primary'}>Login</Button>
                 </FormGroup>
             </FormControl>
             </form>
         </Grid>
-    </Grid>)
+    </Grid>
 }
+
+
+let mapStateToProps = (state) => {
+    return {
+        isAuth: state.auth.isAuth
+    }
+}
+
+const LoginContainer =  connect(mapStateToProps , {login})(Login)
+export default LoginContainer
 

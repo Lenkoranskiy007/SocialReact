@@ -18,10 +18,10 @@ const mapDispatchToProps = (dispatch) => {
             let action = addMessageActionCreator(newMessageBody)
             dispatch(action)
         },
-        // onChangeMessage: (messageText) => {
-        //     let action = updateNewMessageActionCreator(messageText)
-        //     dispatch(action)
-        // }
+        onChangeMessage: (messageText) => {
+            let action = updateNewMessageActionCreator(messageText)
+            dispatch(action)
+        }
     }
 }
 

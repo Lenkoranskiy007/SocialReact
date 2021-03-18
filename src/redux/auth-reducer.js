@@ -24,8 +24,8 @@ export const authReducer = (state = initialState, action) => {
 }
 
 
-export const setUserDataActionCreator = (userId, email, login ) => {
-    return {type: SET_USER_DATA, data: {userId, email, login}}
+export const setUserDataActionCreator = (userId, email, login, isAuth ) => {
+    return {type: SET_USER_DATA, data: {userId, email, login , isAuth}}
 }
 
 
@@ -34,9 +34,27 @@ export const loginTC = () => {
         authAPI.me().then(response => {
             if (response.data.resultCode  === 0 ) {
                 let {id, email, login} = response.data.data
-                dispatch(setUserDataActionCreator(id, email, login))
+                dispatch(setUserDataActionCreator(id, email, login, true))
             }
+        })
+    }
+}
+export const login = (email, password, rememberMe) => {
+    return (dispatch) => {
+        authAPI.login(email, password, rememberMe,true).then(response => {
+            if (response.data.resultCode  === 0 ) {
+                dispatch(setUserDataActionCreator())
+            }
+        })
+    }
+}
 
+export const logoutTC = () => {
+    return (dispatch) => {
+        authAPI.logout().then(response => {
+            if (response.data.resultCode  === 0 ) {
+                dispatch(setUserDataActionCreator(null, null, null, false))
+            }
         })
     }
 }

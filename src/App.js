@@ -5,7 +5,10 @@ import DialogsContainer from "./Dialogs/DialogsContainer";
 import UsersContainer from "./USers/UsersContainer";
 import ProfilesContainer from "./Profile/ProfilesContainer";
 import HeadersContainer from "./Header/HeaderContainer";
-import {Login} from "./Login/Login";
+import LoginContainer, {Login, MyForm} from "./Login/Login";
+import {Component} from "react";
+
+
 
 
 function App(props) {
@@ -23,7 +26,7 @@ function App(props) {
                 <Route path='/users' render={() => <UsersContainer
                 />}/>
 
-                <Route path='/login' render={() => <Login
+                <Route path='/login' render={() => <LoginContainer
                 />}/>
 
             </div>
