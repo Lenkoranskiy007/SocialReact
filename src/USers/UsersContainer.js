@@ -12,6 +12,7 @@ import * as axios from "axios";
 import Users from "./Users";
 import preloader from '../photo/preloader.gif'
 import { usersAPI} from "../Api/Api";
+import {Preloader} from "../logo/Preloader";
 
 
 
@@ -43,7 +44,7 @@ class UsersAPIComponent extends React.Component {
         }
 
         return <>
-            {this.props.isFetching? <img src={preloader}/>: null}
+            {this.props.isFetching? <Preloader/>: null}
          <Users
             onPageChanged={this.onPageChanged}
             totalCount={this.props.totalCount}
