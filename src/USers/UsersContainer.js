@@ -13,6 +13,15 @@ import Users from "./Users";
 import preloader from '../photo/preloader.gif'
 import { usersAPI} from "../Api/Api";
 import {Preloader} from "../logo/Preloader";
+import {
+    getCurrentPage,
+    getFollowingInProgress,
+    getIsFetching,
+    getPageSize,
+    getTotalCount,
+    getUsers
+} from "../redux/users-selector";
+
 
 
 
@@ -65,12 +74,12 @@ class UsersAPIComponent extends React.Component {
 
 let mapStateToProps = (state) => {
     return {
-        users: state.usersPage.users,
-        pageSize: state.usersPage.pageSize,
-        totalCount: state.usersPage.totalCount,
-        currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching,
-        followingInProgress: state.usersPage.followingInProgress
+        users:  getUsers(state),
+        pageSize: getPageSize(state),
+        totalCount:getTotalCount(state),
+        currentPage:getCurrentPage(state),
+        isFetching: getIsFetching(state),
+        followingInProgress: getFollowingInProgress(state)
     }
 }
 
