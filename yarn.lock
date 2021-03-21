@@ -10298,6 +10298,11 @@
   "resolved" "https://registry.npmjs.org/select-hose/-/select-hose-2.0.0.tgz"
   "version" "2.0.0"
 
+"selector@^2.0.18":
+  "integrity" "sha512-xEqzhkxOEU0F+IZPjH+L1cRKa52XaGfsMkvgcSPU2MIVA0yYpKcN9glB83fRFNTJcHbXuYZqbNwrXJrRa3APaw=="
+  "resolved" "https://registry.npmjs.org/selector/-/selector-2.0.18.tgz"
+  "version" "2.0.18"
+
 "selfsigned@^1.10.7":
   "integrity" "sha512-2P4PtieJeEwVgTU9QEcwIRDQ/mXJLX8/+I3ur+Pg16nS8oNbrGxEso9NyYWy8NAmXiNl4dlAp5MwoNeCWzON4w=="
   "resolved" "https://registry.npmjs.org/selfsigned/-/selfsigned-1.10.8.tgz"
