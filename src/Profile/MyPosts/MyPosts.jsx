@@ -8,9 +8,9 @@ import {Button, TextField} from "@material-ui/core";
 
 
 
-export const MyPosts = (props) => {
+export const MyPosts = React.memo(props => {
+    console.log('redndede')
 
-    console.log(props.profilePage.posts)
     let newPostElement  = React.createRef()
 
     let addPost = () => {
@@ -33,55 +33,4 @@ export const MyPosts = (props) => {
             {postsElements}
         </div>
 
-}
-
-
-
-
-
-
-
-
-
-
-
-
-//
-// const AddPostForm = (props) => {
-//
-//     const formik = useFormik({
-//         initialValues: {
-//             email: '',
-//             password: '',
-//             rememberMe: false,
-//             addPost: ''
-//         },
-//         validate: (values) => {
-//             const errors = {};
-//             if (!values.addPost) {
-//                 errors.addPost = 'Required!';
-//             } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.addPost)) {
-//                 errors.addPost = '';
-//             }
-//             return errors;
-//         },
-//         onSubmit: values => {
-//             props.addPost(values.addPost)
-//         },
-//     })
-//
-//
-//
-//     return (
-//         <form onSubmit={formik.handleSubmit}>
-//             <div>My posts</div>
-//             <div>
-//                 <TextField onChange={formik.handleChange}  name='addPost' />
-//                 <Button type={'submit'} variant={'contained'} color={'secondary'}>Add post</Button>
-//             </div>
-//             {formik.errors.addPost ? <div style={{color: "red"}}>{formik.errors.addPost}</div>: null }
-//             {props.postElements}
-//
-//         </form>
-//     )
-// }
+})
