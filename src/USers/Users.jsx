@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import classes from "./Users.module.css";
 import usersPhoto from "../photo/108180118-user-vector-icon-isolated-on-transparent-background-user-logo-concept.jpg";
 import {NavLink} from "react-router-dom";
@@ -6,28 +6,28 @@ import * as axios from "axios";
 import {usersAPI} from "../Api/Api";
 
 
- const Users = (props) => {
+ const Users = (props, portionSize = 5) => {
 
-
-    let pagesCount = Math.ceil( props.totalCount / 400)
+    let pagesCount = Math.ceil( props.totalCount / 300)
 
     let pages = []
     for(let i = 1; i <= pagesCount; i++) {
         pages.push(i)
     }
 
+
+
     return (
-        <div>
-            <div>
-                {
-                    pages.map(p => {
+        <div className={classes.paginator} >
+            {
+                     pages.map(p => {
                         return  <span  className={props.currentPage === p && classes.selectedPage}
                                        onClick={() => { props.onPageChanged(p)}}
 
                         >{p}</span>
                     })}
 
-            </div>
+
             {
 
                 props.users.map(u => <div key={u.id}>
