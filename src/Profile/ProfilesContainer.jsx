@@ -1,6 +1,12 @@
 import React from 'react'
 import {Profile} from "./Profile";
-import {getProfileTC, getStatusTC, setUserProfileActionCreator, updateStatusTC} from "../redux/profile-reducer";
+import {
+    getProfileTC,
+    getStatusTC,
+    savePhotoTC,
+    setUserProfileActionCreator,
+    updateStatusTC
+} from "../redux/profile-reducer";
 import * as axios from "axios";
 import {connect} from "react-redux";
 import {Redirect, withRouter} from "react-router";
@@ -9,8 +15,8 @@ import {compose} from "redux";
 
 class ProfileContainer extends React.Component {
 
-    componentDidMount() {
 
+    refreshProfile() {
         let userId = this.props.match.params.userId
 
         if(!userId) {
@@ -21,13 +27,32 @@ class ProfileContainer extends React.Component {
         // })
         this.props.getProfileTC(userId)
         this.props.getStatusTC(userId)
+    }
+
+
+    componentDidMount() {
+        this.refreshProfile()
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+
+        if(this.props.match.params.userId != prevProps.match.params.userId) {
+            this.refreshProfile()
+        }
 
     }
 
     render() {
 
         return (
-            <Profile  {...this.props}  profile={this.props.profile} status={this.props.status} updateStatusTC={this.props.updateStatusTC}/>
+            <Profile
+                {...this.props}
+                profile={this.props.profile}
+                status={this.props.status}
+                updateStatusTC={this.props.updateStatusTC}
+                isOwner={!this.props.match.params.userId}
+                savePhotoTC={this.props.savePhotoTC}
+            />
         )
 
     }
@@ -41,7 +66,7 @@ let mapStateToProps = (state) => {
 }
 
 export default compose(
-    connect(mapStateToProps, { getProfileTC, getStatusTC, updateStatusTC}),
+    connect(mapStateToProps, {savePhotoTC, getProfileTC, getStatusTC, updateStatusTC}),
     withRouter,
     //withAuthRedirect
 )(ProfileContainer)

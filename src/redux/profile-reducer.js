@@ -4,7 +4,9 @@ import {profileAPI, usersAPI} from "../Api/Api";
 let ADD_POST = 'ADD-POST'
 let UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
 let SET_USER_PROFILE = 'SET_USER_PROFILE'
-let SET_STATUS = ' SET_STATUS'
+let SET_STATUS = 'SET_STATUS'
+let SAVE_PHOTO = 'SAVE_PHOTO'
+
 
 let initialState = {
     posts: [
@@ -48,12 +50,22 @@ export const profileReducer = (state = initialState, action) => {
             stateCopy.status = action.status
             return stateCopy
         }
+        case SAVE_PHOTO:
+            debugger
+            return {
+                ...state,
+                profile:{...state.profile, photos: action.photos}
+            }
+
 
         default: {
             return state
         }
     }
 }
+
+
+
 
 
 export const addPostActionCreator = () => {
@@ -71,6 +83,12 @@ export const setUserProfileActionCreator = (profile) => {
 export const setStatusActionCreator = (status) => {
     return {type: SET_STATUS, status}
 }
+
+const savePhotoAC = (photos) => {
+    return {type: SAVE_PHOTO, photos}
+}
+
+
 
 
 export  const getProfileTC = (userId) => {
@@ -97,5 +115,22 @@ export const updateStatusTC = (status) => {
             if(response.data.resultCode === 0 ) {
             dispatch(setStatusActionCreator(status))
         }})
+    }
+}
+
+export const savePhotoTC = (file) => {
+    return async (dispatch) => {
+        let response = await profileAPI.savePhoto(file)
+        if(response.data.resultCode === 0 ) {
+            dispatch(savePhotoAC(response.data.data.photos))
+        }
+       //
+       // profileAPI.savePhoto(file).then(response => {
+       //     if(response.data.resultCode === 0 ) {
+       //         dispatch(savePhotoAC(response.data.data.photos))
+       //     }
+       // })
+
+
     }
 }

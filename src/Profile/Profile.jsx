@@ -10,7 +10,7 @@ export const Profile = (props) => {
 
     return <div className={classes.content}>
 
-        <ProfileInfo profile={props.profile } status={props.status} updateStatusTC={props.updateStatusTC}/>
+        <ProfileInfo savePhotoTC={props.savePhotoTC} isOwner={props.isOwner} profile={props.profile } status={props.status} updateStatusTC={props.updateStatusTC}/>
         <hr/>
         <MyPostsContainer />
         </div>
