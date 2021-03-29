@@ -1,12 +1,14 @@
-import {authAPI, usersAPI} from "../Api/Api";
+import {authAPI, securityAPI, usersAPI} from "../Api/Api";
 
 const SET_USER_DATA =  'SET_USER_DATA '
+const GET_CAPTCHA_URL =  'GET_CAPTCHA_URL '
 
 let initialState = {
     userId: null,
     email: null,
     login: null,
-    isAuth: false
+    isAuth: false,
+    captchaUrl: null
 }
 
 export const authReducer = (state = initialState, action) => {
@@ -38,6 +40,8 @@ export const loginTC = () => (dispatch) => {
         })
 
 }
+
+
 export const login = (email, password, rememberMe) => {
     return (dispatch) => {
         authAPI.login(email, password, rememberMe,true).then(response => {

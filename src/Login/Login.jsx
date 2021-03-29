@@ -42,6 +42,8 @@ export const Login = (props) => {
     }
 
 
+
+
     return <Grid container justify="center">
         <Grid item xs={4}>
             <form onSubmit={formik.handleSubmit}>
@@ -70,6 +72,7 @@ export const Login = (props) => {
                         />}
                     />
                     <Button type={'submit'} variant={'contained'} color={'primary'}>Login</Button>
+
                 </FormGroup>
             </FormControl>
             </form>
@@ -80,7 +83,7 @@ export const Login = (props) => {
 
 let mapStateToProps = (state) => {
     return {
-        isAuth: state.auth.isAuth
+        isAuth: state.auth.isAuth,
     }
 }
 

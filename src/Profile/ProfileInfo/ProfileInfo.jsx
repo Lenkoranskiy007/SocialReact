@@ -2,10 +2,11 @@ import React, {useState} from 'react'
 import classes from "../Profile.module.css";
 import preloader from '../../photo/preloader.gif'
 import ProfileStatus from "./ProfileStatus";
-import {updateStatusTC} from "../../redux/profile-reducer";
+import {saveProfileTC, updateStatusTC} from "../../redux/profile-reducer";
 import ProfileHookStatus from "./ProfileStatusHook";
 import userPhoto from '../../photo/108180118-user-vector-icon-isolated-on-transparent-background-user-logo-concept.jpg'
 import {ProfileDataForm} from "./ProfileDataForm";
+import {Button, FormGroup} from "@material-ui/core";
 
 export const ProfileInfo = (props) => {
 
@@ -29,7 +30,7 @@ export const ProfileInfo = (props) => {
                {props.isOwner && <input type="file" onChange={onMainPhotoSelected}/>}
             <div>
                 {editMode
-                    ? <ProfileDataForm />
+                    ? <ProfileDataForm profile={props.profile} saveProfileTC={props.saveProfileTC} setEditMode={setEditMode} />
                     : <ProfileData
                       goToEditMode={ () => {setEditMode(true)}}
                       profile={props.profile}
@@ -44,24 +45,22 @@ export const ProfileInfo = (props) => {
 }
 
 
-const Contact = ({contactTitle, contactValue}) => {
-    return <div className={classes.contact}><b>{contactTitle}</b>: {contactValue}</div>
-}
 
 export const ProfileData = (props) => {
     return (
         <div>
-            {props.isOwner &&   <button onClick={props.goToEditMode}>edit</button>}
+            {props.isOwner &&  <Button onClick={props.goToEditMode} type={'submit'} variant={'contained'} color={'secondary'}>Edit</Button>}
 
         <div>
             <b>Full name</b>: {props.profile.fullName}
         </div>
         <div>
-            <b>Looking For A Job</b>: {props.profile.lookingForAJob? 'yes': 'no'}
+            <b>Looking For A Job</b>: {props.profile.lookingForAJob ? 'yes' : 'no'}
         </div>
         <div>
-            <b>Looking For A Job Description</b>: {props.profile.lookingForAJobDescription ? 'yes': 'no' }
+            <b>My professional skills </b>: {props.profile.lookingForAJobDescription}
         </div>
+            {console.log()}
         <div>
             <b>About me </b>: {props.profile.aboutMe}
         </div>
@@ -71,4 +70,9 @@ export const ProfileData = (props) => {
         })}
         </div>
     </div>)
+}
+
+
+export const Contact = ({contactTitle, contactValue}) => {
+    return <div className={classes.contact}><b>{contactTitle}</b>: {contactValue}</div>
 }
