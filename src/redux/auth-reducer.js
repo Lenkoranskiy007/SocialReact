@@ -1,7 +1,9 @@
 import {authAPI, securityAPI, usersAPI} from "../Api/Api";
+import * as formik from "formik";
+import {useFormik} from "formik";
 
 const SET_USER_DATA =  'SET_USER_DATA '
-const GET_CAPTCHA_URL =  'GET_CAPTCHA_URL '
+const GET_CAPTCHA_URL_SUCCESS =  'GET_CAPTCHA_URL_SUCCESS '
 
 let initialState = {
     userId: null,
@@ -20,6 +22,12 @@ export const authReducer = (state = initialState, action) => {
                 isAuth: true
             }
         }
+        case GET_CAPTCHA_URL_SUCCESS: {
+            return  {
+                ...state,
+                ...action.payload
+            }
+        }
         default :
             return state
     }
@@ -31,7 +39,18 @@ export const setUserDataActionCreator = (userId, email, login, isAuth ) => {
 }
 
 
-export const loginTC = () => (dispatch) => {
+const getCaptchaUrlSuccessAC = (captchaUrl) => {
+    return {type: GET_CAPTCHA_URL_SUCCESS, payload: {captchaUrl}}
+}
+
+export const getCaptchaUrlTC = () => async (dispatch) => {
+    const response =  await securityAPI.getCaptchaUrl()
+    const captchaUrl = response.data.url
+    dispatch(getCaptchaUrlSuccessAC(captchaUrl))
+
+}
+
+export const getAuthUserData = () => (dispatch) => {
       return  authAPI.me().then(response => {
             if (response.data.resultCode  === 0 ) {
                 let {id, email, login} = response.data.data
@@ -42,14 +61,16 @@ export const loginTC = () => (dispatch) => {
 }
 
 
-export const login = (email, password, rememberMe) => {
-    return (dispatch) => {
-        authAPI.login(email, password, rememberMe,true).then(response => {
-            if (response.data.resultCode  === 0 ) {
-                dispatch(setUserDataActionCreator())
+
+export const loginTC = (email, password, rememberMe, captcha) => {
+    return async (dispatch) => {
+           let response =  await authAPI.login(email, password, rememberMe,captcha)
+            if (response.data.resultCode === 0 ) {
+                dispatch(getAuthUserData())
+            } else if(response.data.resultCode === 10 ) {
+                dispatch(getCaptchaUrlTC())
             }
-        })
-    }
+        }
 }
 
 export const logoutTC = () => {

@@ -1,4 +1,4 @@
-import {loginTC} from "./auth-reducer";
+import {getAuthUserData} from "./auth-reducer";
 
 const SET_INITIALIZED =  'SET_INITIALIZED'
 
@@ -25,7 +25,7 @@ const initializedSuccessAC = () => {
 }
 
 export const initializeAppTC = () => (dispatch) => {
-    let promise = dispatch(loginTC())
+    let promise = dispatch(getAuthUserData())
 
     Promise.all([promise]).then(() => {
         dispatch(initializedSuccessAC())

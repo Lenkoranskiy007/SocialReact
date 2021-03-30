@@ -2,7 +2,7 @@ import React from 'react'
 import {Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, TextField, Button, Grid} from '@material-ui/core'
 import {useFormik} from "formik";
 import {connect} from "react-redux";
-import {login} from "../redux/auth-reducer";
+import {loginTC} from "../redux/auth-reducer";
 import {Redirect} from "react-router";
 
 
@@ -14,7 +14,8 @@ export const Login = (props) => {
         initialValues: {
             email: '',
             password: '',
-            rememberMe: false
+            rememberMe: false,
+            captchaUrl: props.captchaUrl
         },
         validate: (values) => {
             const errors = {};
@@ -33,15 +34,14 @@ export const Login = (props) => {
 
         onSubmit: values => {
             alert(JSON.stringify(values));
-            formik.resetForm()
-             props.login(values.email, values.password ,values.rememberMe)
+            // formik.resetForm()
+
+             props.login(values.email, values.password ,values.rememberMe, values.captchaUrl)
         },
     })
     if(props.isAuth) {
         return <Redirect to={'/profile'}/>
     }
-
-
 
 
     return <Grid container justify="center">
@@ -71,8 +71,13 @@ export const Login = (props) => {
                         name="rememberMe"
                         />}
                     />
-                    <Button type={'submit'} variant={'contained'} color={'primary'}>Login</Button>
+                    {props.captchaUrl && <img src={props.captchaUrl}/>}
+                    {props.captchaUrl && <TextField
+                        margin="normal"
+                        {...formik.getFieldProps('captchaUrl')}
+                    />}
 
+                    <Button type={'submit'} variant={'contained'} color={'primary'}>Login</Button>
                 </FormGroup>
             </FormControl>
             </form>
@@ -84,9 +89,10 @@ export const Login = (props) => {
 let mapStateToProps = (state) => {
     return {
         isAuth: state.auth.isAuth,
+        captchaUrl: state.auth.captchaUrl
     }
 }
 
-const LoginContainer =  connect(mapStateToProps , {login})(Login)
+const LoginContainer =  connect(mapStateToProps , {login: loginTC})(Login)
 export default LoginContainer
 
